@@ -2,7 +2,7 @@ import { Air, Cargo, Maritime, Road } from "./model/cargo.js";
 import { Product } from "./model/product.js";
 import { Receiver, Sender, User } from "./model/user.js";
 
-const byWeight: any = document.querySelector("#byWeight");
+const byWeight: HTMLInputElement = (document.querySelector("#byWeight") as HTMLInputElement);
 const byProduct: any = document.querySelector("#byProduct");
 const quantity: any = document.querySelector("#quantity");
 const cargoType: any = document.querySelector("#cargo-type");
@@ -15,7 +15,7 @@ const form = document.querySelector("#add-cargo") as HTMLFormElement;
 const radioChoice: any = document.getElementById("radio-choice");
 const tbodyCargo = document.getElementById('tbody-cargo') as HTMLElement;
 
-byWeight?.addEventListener('click', () =>{
+byWeight.addEventListener('click', () =>{
     if(byWeight.checked === true){
         radioChoice.classList.add('hidden');
         quantity.innerHTML = '';
@@ -111,7 +111,6 @@ form.addEventListener('submit', (e) =>{
         }
 
         formData.append('image', imageUrl);
-        //console.log(formData.entries);
 
         fetch('api.php', {
             method: 'POST',
@@ -133,7 +132,6 @@ form.addEventListener('submit', (e) =>{
                 cargaisons.push(cargo);
                 displayThisCagoOnTheTable(cargo);
                 alert(jsonData.message);
-                //const cargo: Cargo = Object.assign(Cargo, formData.entries);
               } else {
                 alert('Erreur lors de l\'ajout de la cargaison');
               }
@@ -311,19 +309,7 @@ function displayThisCagoOnTheTable(cargaison: Cargo){
 
 let cargaisons: Cargo[] = [];
 
-/*function getAllCargos(){
-    fetch('api.php?action=getCargaison', {
-        method: 'GET'
-      })
-        .then(response => response.text())
-        .then(data => {
-            const jsonData = JSON.parse(data);
-            cargaisons = jsonData.data.cargaisons;
-        })
-        .catch(error => console.error('Erreur:', error));
-}*/
 
-//getAllCargos();
 
 function padStart(str: string, targetLength: number, padString: string) {
     str = str.toString();
@@ -409,14 +395,7 @@ function pagination(page: number = currentPage){
             }
           });
 
-           // Mise à jour des événements des boutons "voir"
-       /*document.querySelectorAll(".btn-view").forEach((button) => {
-        button.addEventListener("click", (event) => {
-          const target = event.target as HTMLElement;
-          const cargaisonId = target.getAttribute("data-id");
-          afficherDetailsCargaison(cargaisonId);
-        });
-      });*/
+       
 
       // Ajoutez des écouteurs d'événements aux boutons
         document.querySelectorAll('.add-product-btn').forEach(button => {
@@ -850,9 +829,7 @@ function saveUserReceiver(receiver: Receiver){
     }).catch(error => console.error('Erreur:', error));
 }
 
-// document.getElementById("product-close-top")?.addEventListener("click", () =>{
-//     (document.getElementById('product-material-type') as HTMLSelectElement).value = "0";
-// })
+
 
 let users: User[] = [];
 function getAllUsers(){
@@ -906,14 +883,6 @@ function displayCargo(): void {
           cargaisonList.appendChild(row);
         });
   
-        // Ajouter des événements aux boutons "voir"
-        /*document.querySelectorAll('.btn-view').forEach(button => {
-          button.addEventListener('click', (event) => {
-            const target = event.target as HTMLElement;
-            const cargaisonId = target.getAttribute('data-id');
-            afficherDetailsCargaison(cargaisonId);
-          });
-        });*/
       })
       .catch(error => console.error('Erreur:', error));
   }
